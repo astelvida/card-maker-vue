@@ -1,0 +1,60 @@
+<settings-row label="Name your hipster:">
+                <text-input v-model="hipster"/>
+            </settings-row>
+            <settings-row label="What's the ocassion?">
+                <option-buttons
+                    :options="getKeys(categories)"
+                    :selected="selectedCategory"
+                    :toggle="toggleCategory"
+                />
+            </settings-row>
+            <words label="Just some AF slang"
+                :words="words"
+                :selectedWords="selectedWords"
+                :toggleWord="toggleWord"
+            /></words>
+            <settings-row label="Background image">
+                <option-buttons
+                    :options="getKeys(photos)"
+                    :selected="selectedPhotoTag"
+                    :toggle="togglePhotoTagAndShowPhoto"
+                />
+                <button class="next" @click.prevent="showNextPhoto(selectedPhotoTag)">
+                    Next
+                </button>
+            </settings-row>
+            <settings-row label="Opacity">
+                <picker
+                    v-model="opacity"
+                    max="1" min="0" step="0.05"
+                />
+            </settings-row>
+            <settings-row label="Color">
+                <picker
+                    v-model="hue"
+                    max="255" min="0" step="1"
+                    v-on:focus="bgInFocus = true"
+                    v-on:focusout="bgInFocus = false"
+                />
+            </settings-row>
+
+
+
+            <card
+                :category="selectedCategory"
+                :photo="selectedPhoto"
+                :categories="categories"
+                :opacity="opacity"
+                :hue="hue"
+                :showBgColor="bgInFocus"
+            />
+
+
+
+    <button
+        :title="option"
+        :class="isSelected ? 'darken': ''"
+        @click.prevent="toggle"
+    >
+        {{ option }}
+    </button>

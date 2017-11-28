@@ -1,0 +1,90 @@
+/**************************/
+/********* OPTIONS ********/
+/**************************/
+
+.card-options-container {
+    display: flex;
+    flex: 0 0 450px;
+    flex-direction: column;
+    padding: 20px 30px;
+    background: #455a64;
+    max-width: 500px;
+} 
+
+.label {
+    text-transform: uppercase;
+} 
+
+input {
+	margin: 0px 5px 10px 0px;
+    width: 90%;
+	outline: none;
+	color: #757575;
+} 
+
+.text {
+    border: 1px solid #616161;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 8px;
+    font-family: $font-primary;
+    font-weight: 100;
+}
+
+// @for $i from 1 through 8 {
+//     .bg-item-#{$i} { height: 100px + random($limit: 50); }
+// }
+
+.bg-grid {
+    position: relative;
+    padding: 5px 0 10px 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    grid-template-rows: repeat(5, minmax(80px, 1fr));
+    grid-gap: 8px;
+}
+
+.bg-list-enter-active, .bg-list-leave-active {
+    transition: height 0.4s ease-out;
+}
+
+.bg-list-enter-to, .bg-list-leave {
+    height: 400px;    
+    opacity: 1;
+}
+.bg-list-enter, .bg-list-leave-to {
+    opacity: 0;
+    height: 0;
+}
+  
+.bg-item {
+    position: relative;
+    opacity: 0;
+    transition: opacity 2s ease-out;
+
+    & > * {
+        border-radius: 2%;
+    }
+
+    &:hover
+        .highlight-overlay  {
+            visibility: visible;
+        }
+}
+
+.hide {
+    opacity: 0;
+}
+
+.show {
+    display: inline-block;
+    opacity: 1;
+}
+
+.highlight-overlay {
+    @extend .image-overlay;
+    visibility: hidden;
+    opacity: 0.2;
+    background-color: hsl(0, 0%, 100%);
+    border-radius: 2%;    
+}

@@ -1,0 +1,138 @@
+
+
+.btn1-container {
+    margin: 10px 0 10px 0;
+}
+
+button {
+    outline: none;
+    font-family: $font-primary;
+    font-weight: 300;
+    background: $blackish;
+    color: $whiteish;
+    font-size: 12px;
+    border: none;
+    border-radius: 0;
+}
+
+.btn-1 {
+    margin: 0px 8px 8px 0;
+    align-self: center;
+    justify-self: center;
+    border-radius: 7px;
+    background: $blue-grey-500;
+    color: $whiteish;
+    padding: 6px 8px;
+    font-weight: 100;
+    letter-spacing: 0.03em;       
+    cursor: pointer;
+    outline: none;
+    transition: box-shadow 0.2s ease-in-out,
+        background 0.2s ease-in-out;
+    
+    &:hover {
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+        background: $blue-grey-400;
+    }
+
+    &::after {
+        display: block;
+        content: attr(title);
+        font-weight: 300;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+    }
+}
+
+.active-1 {
+    font-weight: 300;
+    color: white;
+    background: $red-350;
+
+    &:hover {
+        background:  $red-350;        
+    }
+}
+
+.btn-2-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btn-2 {
+    position: relative;
+    text-decoration: none;
+    color: $whiteish;
+    background: none;
+    padding: 0px 0px 8px 0;
+    margin: 0px 20px 10px 0px;
+    letter-spacing: 0.07em;
+    box-shadow: 0 -2px 0px 0px $blue-grey-400 inset;
+    transition: all ease-in-out 0.2s;
+    
+    &:hover {
+        @extend .active-2;
+        transform: scale(1.1);
+    }
+    
+}
+
+.active-2 {
+    box-shadow: 0 -2.5px 0px 0px $red-400 inset;
+    color: white;
+}
+
+.btn-3 {
+    padding: 6px 8px;
+    background: none;
+    color: $whiteish;
+    font-size: 13px;
+    font-family: $font-primary;
+    letter-spacing: 0.03em;       
+    cursor: pointer;
+    line-height: 2em;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        letter-spacing: 0.07em;
+    }
+}
+
+.btn-3::after,
+.btn-3::before {
+    backface-visibility: hidden;
+    border: 0.5px solid rgba(#fff, 0);
+    bottom: 0px;
+    content: "";
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    transition: all 280ms ease-in-out;
+    width: 0;
+}
+
+.btn-3:hover::after,
+.btn-3:hover::before {
+    backface-visibility: hidden;
+    border-color: #fff;
+    transition: width 350ms ease-in-out;
+    width: 100%;
+}
+
+// .btn-3:hover::before {
+//     bottom: auto;
+//     top: 0;
+//     width: 100%;
+// }
+
+
+
+.next {
+    background: #FFB74D;
+    color: #fefefe;
+
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: 10px;
+}
