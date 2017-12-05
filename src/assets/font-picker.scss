@@ -1,6 +1,5 @@
 .font-grid {
     position: relative;
-    // padding: 5px 0 10px 0;
     display: grid;
     grid-template-columns: repeat(4, minmax(90px, 1fr));
     grid-template-rows: repeat(2, minmax(70px, 1fr));

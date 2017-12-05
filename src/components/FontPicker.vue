@@ -6,10 +6,8 @@
             :key="font"
             @click="handleClick(font)"
         >
-            <div :class="getClassName(sampleClass, font)"
-                :style="{ fontFamily: font }"
-            >
-                <span class="font-text">love</span>
+            <div :class="getClassName(sampleClass, font)">
+                <span :style="{ fontFamily: font }">love</span>
             </div>
             <div :class="getClassName(labelClass, font)">
                 <span>{{ font }}</span>
@@ -22,20 +20,17 @@
 export default {
     props: [
         'fonts',
+        'handleClick',
+        'selected',
     ],
     data() {
         return {
-            itemClass: 'font-item',
             sampleClass: 'font-sample',
             labelClass: 'font-name',
             selectedClass: 'selected-font',
-            selected: '',
         };
     },
     methods: {
-        handleClick(value) {
-            this.selected = value;
-        },
         getClassName(baseClass, font) {
             return [baseClass, this.isSelected(font) ? this.selectedClass : ''];
         },

@@ -44,6 +44,8 @@
             <settings-row label="Fonts">
                 <font-picker
                     :fonts="fonts"
+                    :handleClick="setFont"
+                    :selected="font"
                 />
             </settings-row>
             
@@ -105,6 +107,7 @@ export default {
             selectedCategory: '',
             imageTag: '',
             imageCategory: '',
+            font: '',
             activeImage: defaultPhoto,
             selectedWords: [],
         };
@@ -140,6 +143,10 @@ export default {
         },
         setOpacity(opacity) {
             this.opacity = opacity;
+        },
+        setFont(font) {
+            console.log('FONT', font);
+            this.font = font;
         },
     },
     computed: {
