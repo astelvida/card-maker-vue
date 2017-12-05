@@ -8,14 +8,18 @@ $whiteish: #fafafa;
 
 $blue-grey-50: #ECEFF1;
 $blue-grey-100: #CFD8DC;
-$blue-grey-200: #ECEFF1;
+$blue-grey-200: #B0BEC5;
 $blue-grey-300: #90A4AE;
 $blue-grey-400: #78909C;
 $blue-grey-500: #607D8B;
 $blue-grey-600: #546E7A;
 $blue-grey-700: #455A64;
 $blue-grey-800: #37474F;
+$blue-grey-850: #304048;
 $blue-grey-900: #263238;
+
+$blue-tone-dark: #35444F;
+$blue-tone-darker: #293f4b;
 
 $red-300: #E57373;
 $red-350: #E96363;
@@ -24,10 +28,14 @@ $red-500: #F44336;
 $deep-orange-500: #FF5722;
 $deep-orange-600: #F4511E;
 
+$amber-200: #FFE082;
+$amber-300: #FFD54F;
+$amber-400: #FFCA28;
 $amber-500: #FFC107;
 $amber-600: #FFB300;
 $amber-700: #FFA000;
 $amber-800: #FF8F00;
+$amber-alt: #FFC500;
 
 $teal-500: #009688;
 $teal-400: #26A69A;
@@ -76,4 +84,11 @@ h1, h2, h3, h4, h5 {
     width: 100%;
     height: 100%;
     opacity: 0.5;
+}
+
+.darken-overlay {
+    @extend .image-overlay;
+    opacity: 0.2;
+    background-color: black;
+    border-radius: 5px;
 }

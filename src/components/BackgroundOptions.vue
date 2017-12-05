@@ -23,8 +23,8 @@
 
 export default {
     props: [
-        'selectedImageTag',
-        'selectedBucketType',
+        'imageTag',
+        'imageCategory',
         'images',
     ],
     data() {
@@ -53,18 +53,12 @@ export default {
 
     computed: {
         landscapeImages() {
-            if (!this.images.has('tags')) {
-                return [];
-            }
             return this.activeImages.filter(({ width, height }) =>
                 (width / height > 1.2 && width / height < 1.8)) || [];
         },
 
         activeImages() {
-            if (!this.images.has('tags')) {
-                return [];
-            }
-            return this.images.get(this.selectedImageTag);
+            return this.images.get(this.imageTag) || []; 
         },
 
         getImageUrls() {

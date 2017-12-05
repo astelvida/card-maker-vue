@@ -38,6 +38,8 @@ const defaultPhoto = {
     width: 0,
 };
 
+const fonts = ['Atomic Age', 'Bangers', 'Concert One', 'Cutive Mono', 'Permanent Marker', 'Roboto Mono', 'Sacramento', 'Ubuntu Mono'];
+
 const SEARCH = 'SEARCH';
 const COLLECTION_ID = 'COLLECTION_ID';
 
@@ -53,11 +55,28 @@ const queryParamMap = {
 const DEFAULT_RESPONSE = { data: {} };
 
 const imageTypes = {
-    'Photography': 'photos',
+    Photography: 'photos',
+    Motion: 'tumblr',
     'Graphic Art': 'tumblr',
-    'Motion': 'tumblr',
 };
 
+const photoOptions = {
+    name: 'photos',
+    tags: 'keys',
+    aliases: ['Photography'],
+    featured: 'yellow',
+};
+
+const tumblrOptions = {
+    name: 'tumblr',
+    tags: 'keys',
+    aliases: ['Graphic Art', 'Motion'],
+    featured: 'dreamcorp420',
+};
+
+const optionsMap = new Map();
+optionsMap.set('photos', photoOptions);
+optionsMap.set('tumblr', tumblrOptions);
 
 export {
     categories,
@@ -65,6 +84,8 @@ export {
     queryParamMap,
     defaultPhoto,
     imageTypes,
+    optionsMap,
+    fonts,
     DEFAULT_RESPONSE,
     SEARCH,
     COLLECTION_ID,

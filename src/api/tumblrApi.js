@@ -11,21 +11,28 @@ const getTumblrImagesByUsername = (username = 'null') => {
     }
 
     return axios.get(`${TUMBLR_API_URL}/${username}`)
-        .then((resp = DEFAULT_RESPONSE) => {
-            return { [username]: resp.data };
-        })
+        .then((resp = DEFAULT_RESPONSE) => ({ [username]: resp.data }))
         .catch(err => { throw err; });
 };
 
 const users = ['dreamcorp420', 'wheresmymind', 'karakult', 'bkcollage', 'sooujin'];
 
 const getTumblrImagesByUserList = () => {
+    const storedTumblrData = window.localStorage.getItem('tumblr');
+
+    if (storedTumblrData !== null) {
+        return Promise.resolve(JSON.parse(storedTumblrData));
+    }
+
     const requests = users.map(user => getTumblrImagesByUsername(user));
 
-    return Promise.all(requests).then(data =>
-        window.localStorage.setItem('tumblr', JSON.stringify(data)));
+    return Promise.all(requests)
+        .then(data => {
+            window.localStorage.setItem('tumblr', JSON.stringify(data));
+            return data;
+        });
 };
-// getTumblrImagesByUserList()
+
 export {
     getTumblrImagesByUsername,
     getTumblrImagesByUserList,

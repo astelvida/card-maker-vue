@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+
         <div class="card-options-container">
             <settings-row label="Name your recipient:">
                 <text-input v-model="recipient"/>
@@ -8,29 +9,30 @@
             <!-- <words label="Just some AF slang" :words="words"
                 :selectedWords="selectedWords"
             /> -->
+
             <settings-row label="Background image">
                 <option-buttons
                     :options="Object.keys(imageTypes)"
-                    :selected="selectedBucketType"
-                    :handleClick="setImageType"
+                    :selected="imageCategory"
+                    :handleClick="setImageCategory"
                     baseClass="btn-2"
                     activeClass="active-2"
                 />
             </settings-row>
             
-            <option-buttons v-if="selectedBucketType !== ''"
+            <option-buttons v-if="imageCategory !== ''"
                 :options="imageBucket.get('tags')"
-                :type="selectedBucketType"
-                :selected="selectedImageTag" 
+                :type="imageCategory"
+                :selected="imageTag" 
                 :handleClick="toggleImageTag"
                 baseClass="btn-1"
                 activeClass="active-1"
             />
 
-            <background-options v-if="selectedImageTag !== ''"
+            <background-options v-if="imageTag !== ''"
                 :images="imageBucket"
-                :selectedBucketType="selectedBucketType"
-                :selectedImageTag="selectedImageTag"
+                :imageCategory="imageCategory"
+                :imageTag="imageTag"
                 v-on:click="setImage"
             />
 
@@ -38,9 +40,17 @@
                 :setOpacity="setOpacity"
                 :setHue="setHue"
             />
+            
+            <settings-row label="Fonts">
+                <font-picker
+                    :fonts="fonts"
+                />
+            </settings-row>
+            
         </div>
     
-        <card :photo="activeImage"
+        <card-view
+            :image="activeImage"
             :opacity="opacity"
             :hue="hue"
         />
@@ -50,7 +60,7 @@
 
 <script>
 
-import Card from './components/Card';
+import CardView from './components/CardView';
 import SettingsRow from './components/SettingsRow';
 import Words from './components/Words';
 import OptionButtons from './components/OptionButtons';
@@ -59,24 +69,25 @@ import BackgroundEdit from './components/BackgroundEdit';
 import TextInput from './components/TextInput';
 import MoreButton from './components/MoreButton';
 import BackgroundOptions from './components/BackgroundOptions';
+import FontPicker from './components/FontPicker';
 
-import { defaultPhoto, imageTypes } from './util/data';
+import { defaultPhoto, imageTypes, fonts } from './util/data';
+import newMap from './util/newMap';
 import words from './json-data/words.json';
 import photos from './json-data/unsplash_photos.json';
 import { getTumblrImagesByUserList } from './api/tumblrApi';
 
-const tumblr = JSON.parse(localStorage.getItem('tumblr'));
-
 export default {
     name: 'app',
     components: {
-        card: Card,
+        'card-view': CardView,
         'settings-row': SettingsRow,
         'option-buttons': OptionButtons,
         'option-button': OptionButton,
         'text-input': TextInput,
         'more-button': MoreButton,
         'background-options': BackgroundOptions,
+        'font-picker': FontPicker,
         'image-edit': BackgroundEdit,
         words: Words,
     },
@@ -85,56 +96,41 @@ export default {
             recipient: '',
             words: { list: words },
             imageTypes,
+            fonts,
             photos: new Map(),
             tumblr: new Map(),
             opacity: 1,
             hue: 0,
             bgInFocus: false,
             selectedCategory: '',
-            selectedImageTag: '',
-            selectedBucketType: '',
+            imageTag: '',
+            imageCategory: '',
             activeImage: defaultPhoto,
             selectedWords: [],
         };
     },
 
     created() {
-        const entries = array => array
-            .map(object => Object.entries(object)[0]);
-            
-        const keys = array => entries(array)
-            .map(([key]) => key);
-        
-        const photoEntries = entries(photos);
-        this.photos = new Map(photoEntries);
-        this.photos.set('tags', keys(photos));
-        this.photos.set('name', 'photos');
-        this.photos.set('aliases', new Set(['Photography']));
-        this.photos.set('featured', 'yellow');
-
-        const tumblrEntries = entries(tumblr);
-        this.tumblr = new Map(tumblrEntries);
-        this.tumblr.set('tags', keys(tumblr));
-        this.tumblr.set('name', 'tumblr');
-        this.tumblr.set('aliases', new Set(['Graphic Art', 'Motion']));
-        this.tumblr.set('featured', 'dreamcorp420');
+        getTumblrImagesByUserList()
+            .then(tumblrData => this.tumblr = newMap(tumblrData, 'tumblr'));
+        this.photos = newMap(photos, 'photos');
     },
     mounted() {
         window.vm = this;
         window.$data = this.$data;
     },
     methods: {
-        setImageType(type) {
-            if (this.selectedBucketType !== type) {
-                this.selectedBucketType = type;
-                this.selectedImageTag = this.featuredTag;
+        setImageCategory(type) {
+            if (this.imageCategory !== type) {
+                this.imageCategory = type;
+                this.imageTag = this.featuredTag;
             } else {
-                this.selectedBucketType = '';
-                this.selectedImageTag = '';
+                this.imageCategory = '';
+                this.imageTag = '';
             }
         },
         toggleImageTag(tag) {
-            this.selectedImageTag = this.selectedImageTag !== tag ? tag : '';
+            this.imageTag = this.imageTag !== tag ? tag : '';
         },
         setImage(image) {
             this.activeImage = image;
@@ -148,7 +144,7 @@ export default {
     },
     computed: {
         imageBucket() {
-            const imageBucket = this.imageTypes[this.selectedBucketType];
+            const imageBucket = this.imageTypes[this.imageCategory];
             return this[imageBucket];
         },
         featuredTag() {
@@ -159,10 +155,12 @@ export default {
 </script>
 
 <style lang="scss">
+    @import './assets/normalize.css';
     @import './assets/base-styles.scss';
     @import './assets/card-settings.scss';
     @import './assets/card-output.scss';
     @import './assets/buttons.scss';
+    @import './assets/font-picker.scss';
 </style>
 
 

@@ -48,14 +48,10 @@ img {
 }
 
 .card-content {
+    z-index: 5;
     display: flex;
     flex-flow: column wrap;
     position: relative;
     background: pink;
 }
 
-.test {
-    color: black;
-    font-size: 20px;
-    flex: 1;
-}

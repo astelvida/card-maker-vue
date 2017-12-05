@@ -2,15 +2,24 @@
 <template>
     <div class="card-display-container">
         <div class="card-display">
-            <div class="card-background" 
-                :style="{ opacity }"
-            >
-                <img :src="photo.imgRegular"/>
+            <div class="card-background" :style="{ opacity }">
+                <img :src="image.imgRegular"/>
                 <div class="card-image-overlay" />
             </div>
             <div class="card-content">
                 <div class="test">Hipsteria...</div>
                 <div class="test">The switch uses the secondary color as an accent. The system bar uses the primary color, while the toolbar uses a darker variation of the primary color.</div>
+                <textarea 
+                    v-model="text"
+                    class="text-editor"
+                ></textarea>
+                <pre>Text:{{ text }}</pre>
+                <textarea 
+                    name="textarea"
+                    rows="10" 
+                    cols="50"
+                >Write something here
+                </textarea>
                 <div class="test">...Hipsteria</div>
             </div>
         </div>
@@ -21,11 +30,17 @@
 <script>
 
 export default {
+
+    data() {
+        return {
+            text: '',
+        };
+    },
     
     props: [
         'hue',
         'opacity',
-        'photo',
+        'image',
     ],
 
     methods: {

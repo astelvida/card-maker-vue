@@ -1,0 +1,81 @@
+.font-grid {
+    position: relative;
+    // padding: 5px 0 10px 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(90px, 1fr));
+    grid-template-rows: repeat(2, minmax(70px, 1fr));
+    grid-gap: 10px;
+}
+
+.font-item {
+    position: relative;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    color: $whiteish;
+
+    &:hover {
+        .font-sample {
+            span {
+                transform: scale(1.15);
+                color: white;
+            }
+        }
+
+        .selected-font {
+            span {
+                color: black;
+            }
+        }
+    }
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.font-sample {
+    @extend .flex-center;
+    flex: 5;
+    border-radius: 5px 5px 0px 0px;    
+    background: $blue-grey-600;
+    color: $whiteish;
+    font-size: 24px;   
+    padding: 2px;
+    
+    span {
+        transition: all 0.2s ease-out;  
+    }
+}
+
+.font-name {
+    @extend .flex-center;
+    flex: 2;
+    filter: opacity(0.75);
+    background: $blue-grey-800;
+    color: $blue-grey-100;
+    border-radius: 0px 0px 5px 5px;        
+    font-size: 10px;
+    text-align: center;
+    padding: 2px;
+
+    &.selected-font {
+        filter: opacity(0.8);
+    }
+    
+}
+
+.selected-font {
+    background: $amber-500;
+    span {
+        color:black;
+    }
+
+    // &:hiver
+}
+
+
